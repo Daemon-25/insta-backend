@@ -1,5 +1,5 @@
-const Post = require("../models/post.model");
-const User = require("../models/user.model");
+const Post = require("../Models/post.model");
+const User = require("../Models/user.model");
 
 exports.user = (req, res) => {
 	User.findOne({ _id: req.params.id })

@@ -1,3 +1,5 @@
+
+
 const jwt = require("jsonwebtoken");
 
 const User = require("../Models/user.model");
@@ -8,7 +10,7 @@ module.exports = (req, res, next) => {
 		return res.status(401).json({ error: "You must be logged In." });
 	}
 	const token = authorization.replace("Bearer ", "");
-	jwt.verify(token, process.env.JWT_SECRET = "12", (err, payload) => {
+	jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
 		if (err) {
 			return res.status(401).json({ error: "You session has been expired." });
 		}

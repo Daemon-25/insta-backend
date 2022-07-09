@@ -1,11 +1,4 @@
-/**
- *
- * @author Anass Ferrak aka " TheLordA " <ferrak.anass@gmail.com>
- * GitHub repo: https://github.com/TheLordA/Instagram-Clone
- *
- */
-
-const Post = require("../models/post.model");
+const Post = require("../Models/post.model");
 
 exports.allPost = (req, res) => {
 	Post.find()
@@ -100,8 +93,8 @@ exports.createPost = (req, res) => {
 
 	// savePhoto(post, photoEncode, photoType);
 
-	if (photoEncode != null) {
-		post.Photo = new Buffer.from(photoEncode, "base64");
+	if (photoEncoded != null) {
+		post.Photo = new Buffer.from(photoEncoded, "base64");
 		post.PhotoType = photoType;
 	}
 

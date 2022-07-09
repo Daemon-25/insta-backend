@@ -4,7 +4,7 @@ const cors = require("cors");
 const compression = require("compression");
 const helmet = require("helmet");
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 const connectToMongo = require('./Database/db.js');
 
 // Gives us access to variables set in the .env file via `process.env.VARIABLE_NAME` syntax

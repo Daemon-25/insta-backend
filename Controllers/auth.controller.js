@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const User = require("../models/user.model");
+const User = require("../Models/user.model");
 
 // SignUp Controller
 exports.signup = (req, res) => {
@@ -67,7 +67,7 @@ exports.signin = (req, res) => {
 			bcrypt.compare(password, savedUser.Password).then((doMatch) => {
 				if (doMatch) {
 					// we will generate the token based on the ID of user
-					const token = jwt.sign({ _id: savedUser._id }, process.env.JWT_SECRET);
+					const token = jwt.sign({ _id: savedUser._id }, /*process.env.JWT_SECRET*/"abc123");
 					// retrieve the user info details and send it to the front
 					const { _id, Name, Email, Followers, Following, Bookmarks } = savedUser;
 					res.json({ token, user: { _id, Name, Email, Followers, Following, Bookmarks } });

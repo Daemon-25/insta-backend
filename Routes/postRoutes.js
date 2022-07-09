@@ -12,7 +12,7 @@ module.exports = (app) => {
 	app.get("/mypost", loginmiddleware, controller.myPost);
 
 	// Create a post
-	app.post("/createpost", /* loginmiddleware,  */controller.createPost);
+	app.post("/createpost",loginmiddleware,controller.createPost);
 
 	// Like a post
 	app.put("/like", loginmiddleware, controller.like);
