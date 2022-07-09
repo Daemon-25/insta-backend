@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const mongoURI = "mongodb://localhost:27017/instagram?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
+const mongoURI = "mongodb+srv://sagar:1234@cluster0.4z0mt.mongodb.net/?retryWrites=true&w=majority"
 
 
 const connectDB = async () => {
