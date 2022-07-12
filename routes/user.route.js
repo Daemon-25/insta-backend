@@ -3,7 +3,7 @@ const controller = require("../controllers/user.controller");
 
 module.exports = (app) => {
 	// Getting the user details by id
-	app.get("/user/:id", /*loginmiddleware,*/ controller.user);
+	app.get("/user/:id", loginmiddleware, controller.user);
 
 	// Follow a user
 	app.put("/follow", loginmiddleware, controller.follow);
