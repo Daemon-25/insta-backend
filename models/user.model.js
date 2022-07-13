@@ -23,26 +23,28 @@ const userSchema = new mongoose.Schema({
 		type: String,
 	},
 	Followers: [{
-		// FollowerId : {
-		type: ObjectId, 
-		ref: "User"
-	// },
-	//  FollowerName:{
-	// 	type: String, required:true
+		FollowerId: {
+			type: ObjectId,
+			ref: "User"
+		},
+		FollowerName: {
+			type: String, 
+			required: true
+		}
 	}
-// }
-],
-	Following: [
-		// {FollowingId : 
-		{
-		type: ObjectId, 
-		ref: "User"
-	},
-	//  FollowingName:{
-	// 	type: String, required:true
-	// }
-// }
-],
+	],
+	Following: [{
+			FollowingId:
+			{
+				type: ObjectId,
+				ref: "User"
+			},
+			FollowingName: {
+				type: String, 
+				required: true
+			}
+		}
+	],
 	Bookmarks: [{ type: ObjectId, ref: "Post" }],
 });
 

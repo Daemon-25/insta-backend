@@ -27,7 +27,9 @@ exports.allPost = (req, res) => {
 };
 
 exports.subPost = (req, res) => {
-	Post.find({ PostedBy: { $in: req.user.Following } })
+	let fol = []
+	req.user.Following.map((e)=> fol.push(e.FollowingId))
+	Post.find({ PostedBy: { $in: fol } })
 		.populate("PostedBy", "_id Name")
 		.populate("Comments.PostedBy", "_id Name")
 		.sort("-createdAt")

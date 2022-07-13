@@ -35,19 +35,20 @@ exports.follow = (req, res) => {
 	User.findByIdAndUpdate(
 		req.body.followId,
 		{
-			$push: { Followers: req.user._id },
+			$push: { Followers: {FollowerId : req.user._id, FollowerName : req.user.Name} },
 		},
 		{
 			new: true,
 		},
 		(err, result) => {
+			
 			if (err) {
 				return res.status(422).json({ error: err });
 			}
 			User.findByIdAndUpdate(
 				req.user._id,
 				{
-					$push: { Following: req.body.followId },
+					$push: { Following: {FollowingId : req.body.followId, FollowingName : result.Name} },
 				},
 				{ new: true }
 			)
@@ -66,7 +67,7 @@ exports.unfollow = (req, res) => {
 	User.findByIdAndUpdate(
 		req.body.unfollowId,
 		{
-			$pull: { Followers: req.user._id },
+			$pull: { Followers: {FollowerId : req.user._id, FollowerName : req.user.Name} },
 		},
 		{
 			new: true,
@@ -78,7 +79,7 @@ exports.unfollow = (req, res) => {
 			User.findByIdAndUpdate(
 				req.user._id,
 				{
-					$pull: { Following: req.body.unfollowId },
+					$pull: { Following: {FollowingId : req.body.unfollowId, FollowingName : result.Name} },
 				},
 				{ new: true }
 			)
@@ -174,7 +175,7 @@ exports.updatePicture = (req, res) => {
 
 exports.userSearch = (req, res) => {
 	let pattern = new RegExp("^" + req.body.pattern);
-	User.find({ Email: { $regex: pattern } })
+	User.find({ Name: { $regex: pattern } })
 		.select("_id Email Name")
 		.then((user) => {
 			res.json({ user });

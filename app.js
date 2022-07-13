@@ -61,3 +61,6 @@ app.disable("x-powered-by");
 app.listen(PORT, () => {
 	console.log(`Server is running in ${process.env.NODE_ENV} mode, under port ${PORT}.`);
 });
+
+//sOCKET iNITIALIZATION FOR cHATTing
+

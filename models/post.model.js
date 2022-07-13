@@ -1,10 +1,3 @@
-/**
- *
- * @author Anass Ferrak aka " TheLordA " <ferrak.anass@gmail.com>
- * GitHub repo: https://github.com/TheLordA/Instagram-Clone
- *
- */
-
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 
