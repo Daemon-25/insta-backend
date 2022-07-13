@@ -22,8 +22,27 @@ const userSchema = new mongoose.Schema({
 	PhotoType: {
 		type: String,
 	},
-	Followers: [{ type: ObjectId, ref: "User" }],
-	Following: [{ type: ObjectId, ref: "User" }],
+	Followers: [{
+		// FollowerId : {
+		type: ObjectId, 
+		ref: "User"
+	// },
+	//  FollowerName:{
+	// 	type: String, required:true
+	}
+// }
+],
+	Following: [
+		// {FollowingId : 
+		{
+		type: ObjectId, 
+		ref: "User"
+	},
+	//  FollowingName:{
+	// 	type: String, required:true
+	// }
+// }
+],
 	Bookmarks: [{ type: ObjectId, ref: "Post" }],
 });
 
