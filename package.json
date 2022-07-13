@@ -26,7 +26,8 @@
     "mongoose": "^6.0.5",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
-    "on-finished": "^2.4.1"
+    "on-finished": "^2.4.1",
+    "socket.io": "^4.5.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"

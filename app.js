@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const compression = require("compression");
 const helmet = require("helmet");
+const socket = require("socket.io");
 
 const connectDB = require("./config/db.config");
 
@@ -42,11 +43,12 @@ app.use(express.urlencoded({ extended: true }));
 require("./routes/auth.route")(app);
 require("./routes/post.route")(app);
 require("./routes/user.route")(app);
+require("./routes/messages.route")(app);
 
 
 app.use('/', (req, res) => {
 	res.send("Hello World")
-  })
+})
 
 /**
  * -------------- SERVER ----------------
@@ -58,9 +60,30 @@ const PORT = process.env.PORT || 3001;
 // Disabling Powered by tag
 app.disable("x-powered-by");
 
-app.listen(PORT, () => {
-	console.log(`Server is running in ${process.env.NODE_ENV} mode, under port ${PORT}.`);
+const server = app.listen(PORT, () => {
+	console.log(`Server is running under port ${PORT}.`);
 });
 
-//sOCKET iNITIALIZATION FOR cHATTing
+const io = socket(server, {
+	cors: {
+		origin: "http://localhost:3000",
+		credentials: true,
+	},
+});
 
+
+//Socket Initialization for Chatting
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+	global.chatSocket = socket;
+	socket.on("add-user", (userId) => {
+		onlineUsers.set(userId, socket.id);
+	});
+
+	socket.on("send-msg", (data) => {
+		const sendUserSocket = onlineUsers.get(data.to);
+		if (sendUserSocket) {
+			socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+		}
+	});
+});
