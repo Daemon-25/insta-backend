@@ -28,7 +28,7 @@ app.use(morgan("dev"));
 // Set up cors to allow us to accept requests from our client
 app.use(
 	cors({
-		origin: "http://localhost:3000", // <-- location of the react app were connecting to
+		origin: "https://snazzy-sopapillas-787e45.netlify.app/", // <-- location of the react app were connecting to
 		credentials: true,
 	})
 );
@@ -66,7 +66,7 @@ const server = app.listen(PORT, () => {
 
 const io = socket(server, {
 	cors: {
-		origin: "http://localhost:3000",
+		origin: "https://snazzy-sopapillas-787e45.netlify.app/",
 		credentials: true,
 	},
 });
