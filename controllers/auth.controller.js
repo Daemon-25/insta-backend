@@ -1,9 +1,6 @@
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-// const sgMail = require("@sendgrid/mail");
-
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const User = require("../models/user.model");
 
@@ -31,14 +28,7 @@ exports.signup = (req, res) => {
 				// We save our new user to DB
 				user.save()
 					.then((user) => {
-						// // after saving the user into DB we send a confirmation email
-						// const email = {
-						// 	from: "no-reply@insta-clone.com",
-						// 	to: user.Email,
-						// 	subject: "Your account has been created successfully",
-						// 	html: "<h1>Welcome to InstaClone</h1>",
-						// };
-						// sgMail.send(email);
+						// after saving the user into DB we send a confirmation email
 						res.json({ message: "Saved successfully " });
 					})
 					.catch((err) => {
@@ -67,7 +57,7 @@ exports.signin = (req, res) => {
 			bcrypt.compare(password, savedUser.Password).then((doMatch) => {
 				if (doMatch) {
 					// we will generate the token based on the ID of user
-					const token = jwt.sign({ _id: savedUser._id }, /*process.env.JWT_SECRET*/"abc123");
+					const token = jwt.sign({ _id: savedUser._id }, "abc123");
 					// retrieve the user info details and send it to the front
 					const { _id, Name, Email, Followers, Following, Bookmarks } = savedUser;
 					res.json({ token, user: { _id, Name, Email, Followers, Following, Bookmarks } });
@@ -81,47 +71,6 @@ exports.signin = (req, res) => {
 		.catch((err) => {
 			console.log(err);
 		});
-};
-
-// Reset Password Controller
-exports.resetPwd = (req, res) => {
-	crypto.randomBytes(32, (err, buffer) => {
-		if (err) {
-			console.log(err);
-		}
-		const token = buffer.toString("hex");
-		User.findOne({ Email: req.body.email }).then((user) => {
-			if (!user) {
-				console.log("simple check of the error source");
-				return res.json({ error: "No User exists with that email" });
-			}
-
-			user.ResetToken = token;
-			user.ExpirationToken = Date.now() + 600000; // 10min in ms
-			user.save().then((result) => {
-				// this section will be fully functional after adding the SendGrid API Key
-				// in order to use this feature
-				// the following is an example of Email template
-
-				// const email = {
-				// 	from: "no-reply@insta-clone.com",
-				// 	to: user.Email,
-				// 	subject: "Password Reset",
-				// 	html: `
-				//      <p>A request has been made to change the password of your account </p>
-				// 	 <h5>click on this <a href="http://localhost:3000/reset/${token}">link</a> to reset your password</h5>
-				// 	 <p> Or copy and paste the following link :</p>
-				// 	 <h5>"http://localhost:3000/reset/${token}"</h5>
-				// 	 <h5>The link is only valid for 10min</h5>
-				// 	 <h5>If you weren't the sender of that request , you can just ignore the message</h5>
-				//      `,
-				// };
-				// sgMail.send(email);
-
-				res.json({ message: "check your Email Inbox" });
-			});
-		});
-	});
 };
 
 // New Password Controller

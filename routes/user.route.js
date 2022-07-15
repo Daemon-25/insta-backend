@@ -21,9 +21,8 @@ module.exports = (app) => {
 	app.put("/remove-bookmark", loginmiddleware, controller.removeBookmark);
 
 	// Update the profile picture
-	// Just Wrote the logic of it but not yet tested and the client implementation doesn't exist yet
 	app.put("/update-picture", loginmiddleware, controller.updatePicture);
 
-	// Search for a user by email
+	// Search for a user by Name
 	app.post("/users-research", controller.userSearch);
 };

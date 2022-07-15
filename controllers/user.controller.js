@@ -158,7 +158,6 @@ exports.removeBookmark = (req, res) => {
 		});
 };
 
-// Just Wrote the logic of it but not yet tested and the client implementation doesn't exist yet
 exports.updatePicture = (req, res) => {
 	User.findByIdAndUpdate(
 		req.user._id,
