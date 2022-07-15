@@ -6,7 +6,7 @@ module.exports.getMessages = async (req, res, next) => {
 
     const messages = await Messages.find({
       users: {
-        $all: [from, to],
+        $all: [from, to]
       },
     }).sort({ updatedAt: 1 });
 
